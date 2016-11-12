@@ -1,31 +1,26 @@
 import Mocha from 'mocha';
 import path from 'path';
 
-exports.runMocha = runMocha;
+function resolvePath(relativePath) {
+  return path.resolve(relativePath);
+}
 
 /**
  * Runs mocha on a given path
- * @param  {[type]} path [description]
- * @return {[type]}      [description]
+ * @param  {String}   _projectPath  The path the mocha project
+ * @param  {Function} callback      The callback handler
  */
-function runMocha (_projectPath) {
+export function runMocha(_projectPath, callback) {
   const projectPath = resolvePath(_projectPath);
-  const options = {
-    cwd: projectPath,
-    env: 'test',
-  };
   const filePaths = Mocha.utils.files(projectPath).map(resolvePath);
   const mocha = new Mocha();
 
-  filePaths.forEach(function (filepath) {
-    mocha.addFile(filepath)
-  });
+  filePaths.forEach(filepath => mocha.addFile(filepath));
 
-  const runner = mocha.run(function () {
-    console.log(runner.testResults);
+  const runner = mocha.run((err) => {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, runner.testResults);
   });
-}
-
-function resolvePath (relativePath) {
-  return path.resolve(relativePath);
 }
