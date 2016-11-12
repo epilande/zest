@@ -15,11 +15,12 @@ function resolvePath(relativePath) {
  * @param  {String}   _projectPath  The path the mocha project
  * @param  {Function} callback      The callback handler
  */
-export function runMocha(_projectPath, callback) {
+export default function (_projectPath, callback) {
   const filePaths = Mocha.utils
     .files(resolvePath(_projectPath))
     .map(resolvePath);
   const mocha = new Mocha();
+  mocha.reporter('json');
 
   filePaths.forEach(filepath => mocha.addFile(filepath));
 
