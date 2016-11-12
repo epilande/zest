@@ -60,8 +60,8 @@ const mb = menubar({
   width: 500,
   height: 700,
   preloadWindow: true,
-  alwaysOnTop: true,
   resizable: false,
+  transparent: true,
 });
 mb.on('ready', () => {
   console.log('app is ready'); // eslint-disable-line
