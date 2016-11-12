@@ -2,6 +2,15 @@ import Mocha from 'mocha';
 import path from 'path';
 
 /**
+ * Resets the suite
+ * @param {Suite} suite the suit.
+ */
+function resetTests(suite) {
+  suite.tests = [];
+  suite.suites = [];
+}
+
+/**
  * Resolves the absolute file path.
  * @param  {String} relativePath  The file path to be resolved.
  * @return {String}               The absolute file path.
@@ -33,10 +42,7 @@ export default function (_projectPath, callback) {
 
   filePaths.forEach(filepath => mocha.addFile(filepath));
 
-  const runner = mocha.run((err) => {
-    if (err) {
-      return callback(err);
-    }
+  const runner = mocha.run((/* failures */) => {
     const results = runner.testResults;
 
     mocha.files = [];
@@ -46,9 +52,4 @@ export default function (_projectPath, callback) {
     resetTests(mocha.suite);
     return callback(null, results);
   });
-}
-
-function resetTests(suite) {
-  suite.tests = [];
-  suite.suites = [];
 }
