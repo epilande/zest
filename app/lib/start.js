@@ -27,12 +27,28 @@ export default function (_projectPath, callback) {
   const mocha = new Mocha();
   mocha.reporter('json');
 
+  if (filePaths.length > 0) {
+    filePaths.forEach(filepath => delete require.cache[filepath]);
+  }
+
   filePaths.forEach(filepath => mocha.addFile(filepath));
 
   const runner = mocha.run((err) => {
     if (err) {
       return callback(err);
     }
-    return callback(null, runner.testResults);
+    const results = runner.testResults;
+
+    mocha.files = [];
+    if (mocha.options) {
+      mocha.options.files = [];
+    }
+    resetTests(mocha.suite);
+    return callback(null, results);
   });
+}
+
+function resetTests(suite) {
+  suite.tests = [];
+  suite.suites = [];
 }
