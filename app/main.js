@@ -10,20 +10,23 @@ const BrowserWindow = electron.BrowserWindow;
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+  });
 
   // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.loadURL(`file://${__dirname}/index.html`);
 
-  mainWindow.on('after-create-window', function () {
+  mainWindow.on('ready-to-show', () => {
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
   });
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
+  mainWindow.on('closed', () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
@@ -36,7 +39,7 @@ function createWindow () {
 // app.on('ready', createWindow);
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function () {
+app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
@@ -44,7 +47,7 @@ app.on('window-all-closed', function () {
   }
 });
 
-app.on('activate', function () {
+app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
@@ -54,13 +57,14 @@ app.on('activate', function () {
 
 // menubar
 const mb = menubar({
-  'width': 500,
-  'height': 700,
-  'preload-window': true,
-  'resizable': false
+  width: 500,
+  height: 700,
+  preloadWindow: true,
+  alwaysOnTop: true,
+  resizable: false,
 });
-mb.on('ready', function ready () {
-  console.log('app is ready')
+mb.on('ready', () => {
+  console.log('app is ready'); // eslint-disable-line
   // your app code here
 });
 
