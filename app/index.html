@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <script>
+      (function() {
+        if (process.env.NODE_ENV !== 'development') {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = './dist/styles.css';
+          document.write(link.outerHTML);
+        }
+      }());
+    </script>
+  </head>
+  <body>
+    <div id="root">
+      We are using node <script>document.write(process.versions.node)</script>,
+      Chromium <script>document.write(process.versions.chrome)</script>,
+      and Electron <script>document.write(process.versions.electron)</script>.
+    </div>
+    <script>
+      (function() {
+        const script = document.createElement('script');
+        script.src = process.env.NODE_ENV === 'development' ? 'http://localhost:9000/dist/bundle.js' : './dist/bundle.js';
+        document.write(script.outerHTML);
+      }());
+    </script>
+  </body>
+</html>
