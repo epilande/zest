@@ -5,7 +5,6 @@
     "browser": true,
     "mocha": true,
     "node": true,
-    "electron": true
   },
   "rules": {},
   "settings": {
