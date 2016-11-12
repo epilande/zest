@@ -16,9 +16,14 @@ function resolvePath(relativePath) {
  * @param  {Function} callback      The callback handler
  */
 export default function (_projectPath, callback) {
-  const filePaths = Mocha.utils
-    .files(resolvePath(_projectPath))
-    .map(resolvePath);
+  let filePaths;
+  try {
+    filePaths = Mocha.utils
+      .files(resolvePath(_projectPath))
+      .map(resolvePath);
+  } catch (err) {
+    return callback(err);
+  }
   const mocha = new Mocha();
   mocha.reporter('json');
 

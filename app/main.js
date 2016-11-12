@@ -1,6 +1,10 @@
 import menubar from 'menubar';
 import electron, { ipcMain } from 'electron';
 
+import runMocha from './lib/start';
+
+const TEST_PROJECT_PATH = '../../zest-target';
+
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
@@ -62,6 +66,22 @@ const mb = menubar({
 mb.on('ready', function ready () {
   console.log('app is ready')
   // your app code here
+});
+
+mb.on('after-create-window', function () {
+  // ====================================================================
+  // This is where the data gets passed to `src/index.js`,
+  // Move to a function call triggered by the frontend.
+  // ====================================================================
+  mb.window.webContents.on('dom-ready', () => {
+    runMocha(TEST_PROJECT_PATH, (err, data) => {
+      if (err) {
+        return mb.window.webContents.send('test error', err);
+      }
+      return mb.window.webContents.send('test results', data);
+    });
+  });
+  // ====================================================================
 });
 
 // ipc communication
