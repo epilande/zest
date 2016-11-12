@@ -1,5 +1,5 @@
-const Mocha = require('mocha');
-const path = require('path');
+import Mocha from 'mocha';
+import path from 'path';
 
 exports.runMocha = runMocha;
 
