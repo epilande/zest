@@ -11,8 +11,9 @@ function resolvePath(relativePath) {
  * @param  {Function} callback      The callback handler
  */
 export function runMocha(_projectPath, callback) {
-  const projectPath = resolvePath(_projectPath);
-  const filePaths = Mocha.utils.files(projectPath).map(resolvePath);
+  const filePaths = Mocha.utils
+    .files(resolvePath(_projectPath))
+    .map(resolvePath);
   const mocha = new Mocha();
 
   filePaths.forEach(filepath => mocha.addFile(filepath));
