@@ -3,8 +3,6 @@ import electron, { ipcMain } from 'electron';
 
 import runMocha from './lib/start';
 
-const TEST_PROJECT_PATH = '../../zest-target';
-
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
@@ -78,12 +76,16 @@ mb.on('after-create-window', function () {
   // Move to a function call triggered by the frontend.
   // ====================================================================
   mb.window.webContents.on('dom-ready', () => {
-    runMocha(TEST_PROJECT_PATH, (err, data) => {
-      if (err) {
-        return mb.window.webContents.send('test error', err);
-      }
-      return mb.window.webContents.send('test results', data);
+
+    ipcMain.on('execute test', (event, path) => {
+      runMocha(path, (err, data) => {
+        if (err) {
+          return mb.window.webContents.send('test error', err);
+        }
+        return mb.window.webContents.send('test results', data);
+      });
     });
+
   });
   // ====================================================================
 });

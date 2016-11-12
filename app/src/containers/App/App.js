@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { remote } from 'electron';
+import { remote, ipcRenderer } from 'electron';
 
 import styles from './App.css';
 
@@ -8,8 +8,18 @@ export default class App extends Component {
     super(props);
     this.setProjectDir = this.setProjectDir.bind(this);
     this.state = {
-      project: '',
+      projectPath: '',
     };
+  }
+
+  componentDidMount() {
+    ipcRenderer.on('test results', (event, results) => {
+      console.log('results: ', results);
+    });
+
+    ipcRenderer.on('test error', (event, error) => {
+      console.error('error: ', error);
+    });
   }
 
   setProjectDir() {
@@ -17,8 +27,10 @@ export default class App extends Component {
     const dir = dialog.showOpenDialog({ properties: ['openDirectory'] });
 
     if (dir) {
-      const [head] = dir;
-      this.setState({ project: head });
+      const [path] = dir;
+      this.setState({ projectPath: path }, () => {
+        ipcRenderer.send('execute test', path);
+      });
     }
   }
 
@@ -28,7 +40,7 @@ export default class App extends Component {
         <div className={styles.trayTriangle} />
         <main className={styles.main}>
           <button onClick={this.setProjectDir}>Select Project Folder</button>
-          <p>{this.state.project}</p>
+          <p>{this.state.projectPath}</p>
         </main>
       </div>
     );
