@@ -1,6 +1,8 @@
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import postcssImport from 'postcss-import';
+import cssnext from 'postcss-cssnext';
 
 const config = {
   entry: './src/index',
@@ -44,7 +46,6 @@ const config = {
             addDependencyTo: webpackInstance,
             path: ['./src'],
           }),
-          postcssNested,
           cssnext({ browsers: ['last 2 versions', 'IE > 10'] }),
         ],
         context: __dirname,

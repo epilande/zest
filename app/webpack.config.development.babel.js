@@ -1,5 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
+import postcssImport from 'postcss-import';
+import cssnext from 'postcss-cssnext';
 
 const config = {
   entry: [
@@ -43,14 +45,11 @@ const config = {
     new webpack.LoaderOptionsPlugin({
       options: {
         postcss: (webpackInstance) => [
-          stylelint,
           postcssImport({
             addDependencyTo: webpackInstance,
             path: ['./src'],
           }),
-          postcssNested,
           cssnext({ browsers: ['last 2 versions', 'IE > 10'] }),
-          postcssReporter({ clearMessages: true }),
         ],
         context: __dirname,
       },
