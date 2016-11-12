@@ -1,6 +1,11 @@
 import Mocha from 'mocha';
 import path from 'path';
 
+/**
+ * Resolves the absolute file path.
+ * @param  {String} relativePath  The file path to be resolved.
+ * @return {String}               The absolute file path.
+ */
 function resolvePath(relativePath) {
   return path.resolve(relativePath);
 }
