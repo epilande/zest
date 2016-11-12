@@ -1,0 +1,21 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "node": true,
+    "electron": true
+  },
+  "rules": {},
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.development.js"
+      }
+    }
+  },
+  "plugins": [
+    "react", "import"
+  ]
+}
