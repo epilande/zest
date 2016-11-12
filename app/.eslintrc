@@ -4,13 +4,15 @@
   "env": {
     "browser": true,
     "mocha": true,
-    "node": true,
+    "node": true
   },
-  "rules": {},
+  "rules": {
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx"] }]
+  },
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "webpack.config.development.js"
+        "config": "./webpack.config.development.babel.js"
       }
     }
   },

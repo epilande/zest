@@ -1,7 +1,7 @@
 import { UPDATE_TEXT } from './constants';
 
 const initialState = {
-  text: ''
+  text: '',
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -9,7 +9,7 @@ export default function reducer(state = initialState, action = {}) {
     case UPDATE_TEXT:
       return {
         ...state,
-        text: action.text
+        text: action.text,
       };
     default:
       return state;

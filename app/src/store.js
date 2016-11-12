@@ -7,7 +7,7 @@ const middleware = [thunk];
 const enhancers = compose(
   applyMiddleware(...middleware),
   (window.devToolsExtension && process.env.NODE_ENV !== 'production') ?
-    window.devToolsExtension() : f => f
+    window.devToolsExtension() : f => f,
 );
 
 export default function configureStore(initialState = {}) {

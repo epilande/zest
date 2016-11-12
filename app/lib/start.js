@@ -2,6 +2,15 @@ import Mocha from 'mocha';
 import path from 'path';
 
 /**
+ * Resets the suite
+ * @param {Suite} suite the suit.
+ */
+function resetTests(suite) {
+  suite.tests = [];
+  suite.suites = [];
+}
+
+/**
  * Resolves the absolute file path.
  * @param  {String} relativePath  The file path to be resolved.
  * @return {String}               The absolute file path.
@@ -27,12 +36,20 @@ export default function (_projectPath, callback) {
   const mocha = new Mocha();
   mocha.reporter('json');
 
+  if (filePaths.length > 0) {
+    filePaths.forEach(filepath => delete require.cache[filepath]);
+  }
+
   filePaths.forEach(filepath => mocha.addFile(filepath));
 
-  const runner = mocha.run((err) => {
-    if (err) {
-      return callback(err);
+  const runner = mocha.run((/* failures */) => {
+    const results = runner.testResults;
+
+    mocha.files = [];
+    if (mocha.options) {
+      mocha.options.files = [];
     }
-    return callback(null, runner.testResults);
+    resetTests(mocha.suite);
+    return callback(null, results);
   });
 }
