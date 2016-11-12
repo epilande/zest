@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=development electron .",
     "dev": "concurrently -k 'node -r babel-register server.js' 'npm start'",
-    "build": "webpack --config webpack.config.production.babel.js && electron-packager . Zest --platform=darwin --arch=all --prune --overwrite"
+    "build": "NODE_ENV=production webpack --config webpack.config.production.babel.js && electron-packager . Zest --platform=darwin --arch=all --prune --overwrite"
   },
   "authors": [
     "Emmanuel Pilande",
