@@ -9,12 +9,14 @@ export default class App extends Component {
     this.setProjectDir = this.setProjectDir.bind(this);
     this.state = {
       projectPath: '',
+      results: {},
     };
   }
 
   componentDidMount() {
     ipcRenderer.on('test results', (event, results) => {
       console.log('results: ', results);
+      this.setState({ results });
     });
 
     ipcRenderer.on('test error', (event, error) => {
@@ -28,7 +30,7 @@ export default class App extends Component {
 
     if (dir) {
       const [path] = dir;
-      this.setState({ projectPath: path }, () => {
+      this.setState({ projectPath: path, results: {} }, () => {
         ipcRenderer.send('execute test', path);
       });
     }
@@ -41,6 +43,7 @@ export default class App extends Component {
         <main className={styles.main}>
           <button onClick={this.setProjectDir}>Select Project Folder</button>
           <p>{this.state.projectPath}</p>
+          <p>{JSON.stringify(this.state.results)}</p>
         </main>
       </div>
     );
