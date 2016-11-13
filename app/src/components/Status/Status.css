@@ -4,6 +4,22 @@
   font-weight: 600;
 }
 
+.inactive .passing {
+  stroke: color(var(--success) blackness(20%));
+}
+
+.inactive .pending {
+  stroke: color(var(--warn) blackness(5%));
+}
+
+.inactive .failure {
+  stroke: color(var(--error) blackness(10%));
+}
+
+.typeText {
+  text-transform: uppercase;
+}
+
 .passing {
   stroke: var(--success);
 }
@@ -14,10 +30,6 @@
 
 .failure {
   stroke: var(--error);
-}
-
-.typeText {
-  text-transform: uppercase;
 }
 
 .label {
@@ -43,6 +55,11 @@
 
 .large {
   text-align: center;
+  transition: background 0.1s;
+}
+
+.inactive {
+  background-color: var(--lite-grey);
 }
 
 .large .amount {
@@ -54,5 +71,6 @@
 }
 
 .large .icon {
+  transition: stroke 0.1s;
   margin-right: 0.4rem;
 }
