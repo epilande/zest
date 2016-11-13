@@ -13,7 +13,7 @@
 
 .testList {
   background-color: var(--lite-grey);
-  height: calc(100vh - 196px);
+  height: calc(100vh - 268px);
 }
 
 .testListItem {
@@ -78,4 +78,10 @@
 
 .stats > div:last-child {
   border-right: 0;
+}
+
+.action {
+  text-align: center;
+  padding: 1rem;
+  background: var(--white);
 }

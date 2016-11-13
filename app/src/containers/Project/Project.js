@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import Header from 'components/Header';
 import List from 'components/List';
 import ListItem from 'components/ListItem';
+import Button from 'components/Button';
 import Status from 'components/Status';
 import PreviousIcon from 'components/icons/Previous';
 
@@ -91,6 +92,9 @@ class Project extends Component {
           {pending}
           {failures}
         </List>
+        <div className={styles.action}>
+          <Button>Run Tests</Button>
+        </div>
       </div>
     );
   }
