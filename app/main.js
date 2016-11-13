@@ -21,6 +21,23 @@ app.on('window-all-closed', () => {
   }
 });
 
+const installExtensions = async () => {
+  if (process.env.NODE_ENV === 'development') {
+    const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
+
+    const extensions = [
+      'REACT_DEVELOPER_TOOLS',
+      'REDUX_DEVTOOLS',
+    ];
+    const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+    for (const name of extensions) { // eslint-disable-line
+      try {
+        await installer.default(installer[name], forceDownload);
+      } catch (e) {} // eslint-disable-line
+    }
+  }
+};
+
 // menubar
 const mb = menubar({
   width: 500,
@@ -28,6 +45,13 @@ const mb = menubar({
   preloadWindow: true,
   resizable: false,
   transparent: true,
+});
+
+mb.on('ready', async () => {
+  await installExtensions();
+
+  console.log('app is ready'); // eslint-disable-line
+  // your app code here
 });
 
 const pathWatchers = {};
