@@ -6,6 +6,7 @@ import {
   INIT_APP,
   SET_PROJECTS,
   TEST_START,
+  PROJECT_REMOVED,
 } from 'ipc-events';
 
 import * as actions from './actions';
@@ -17,6 +18,7 @@ class App extends Component {
     setProjects: PropTypes.func,
     updateProject: PropTypes.func,
     updateProjectProgress: PropTypes.func,
+    deleteProject: PropTypes.func,
   };
 
   constructor(props) {
@@ -30,6 +32,7 @@ class App extends Component {
       setProjects,
       updateProject,
       updateProjectProgress,
+      deleteProject,
     } = this.props;
     ipcRenderer.on(SET_PROJECTS, (event, projects) => {
       setProjects(projects);
@@ -37,6 +40,13 @@ class App extends Component {
     });
 
     ipcRenderer.send(INIT_APP);
+
+    ipcRenderer.on(PROJECT_REMOVED, (event, projectPath, wasRemoved) => {
+      if (wasRemoved) {
+        return deleteProject(projectPath);
+      }
+      return false;
+    });
 
     ipcRenderer.on(TEST_START, (event, projectPath) => {
       updateProjectProgress(projectPath, true);
