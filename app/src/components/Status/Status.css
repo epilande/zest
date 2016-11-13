@@ -1,0 +1,33 @@
+.amount {
+  font-weight: bold;
+}
+
+.icon {
+  margin-right: 0.25rem;
+}
+
+.typeText {
+  text-transform: uppercase;
+}
+
+.label {
+  display: flex;
+}
+
+.small {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.large {
+  text-align: center;
+}
+
+.large .amount {
+  font-size: 2rem;
+}
+
+.large .label {
+  justify-content: center;
+}
