@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <style>
+      .z-loader-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(2);
+      }
+    </style>
     <script>
       (function() {
         if (process.env.NODE_ENV !== 'development') {
@@ -16,7 +24,7 @@
   </head>
   <body>
     <div id="root">
-      <svg width="80" height="44" viewBox="0 0 80 44" xmlns="http://www.w3.org/2000/svg">
+      <svg class="z-loader-logo" width="80" height="44" viewBox="0 0 80 44" xmlns="http://www.w3.org/2000/svg">
         <title>Zest</title>
         <g fill="none" fill-rule="evenodd">
           <path fill="#FEC33D" d="M.482.171L64.557.17 49.496 27.34z"/>
