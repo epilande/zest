@@ -33,9 +33,11 @@ class Project extends Component {
 
   renderListItem(test, key, status) {
     return (
-      <ListItem key={key}>
-        <Status type={status} />
-        <div className={styles.fullTitle}>{test.fullTitle}</div>
+      <ListItem className={styles.testListItem} key={key}>
+        <div className={styles.testTitle}>
+          <Status className={styles.testIcon} type={status} />
+          <div className={styles.fullTitle}>{test.fullTitle}</div>
+        </div>
         <div className={styles.duration}>{test.duration}ms</div>
       </ListItem>
     );
@@ -75,7 +77,7 @@ class Project extends Component {
           <Status size="large" type="failure">{project.stats ? project.stats.failures : '-'}</Status>
         </div>
 
-        <List>
+        <List className={styles.testList}>
           {passing}
           {pending}
           {failures}

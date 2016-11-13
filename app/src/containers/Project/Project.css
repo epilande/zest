@@ -11,6 +11,37 @@
   padding: 0.5rem 1.25rem;
 }
 
+.testList {
+  background-color: var(--lite-grey);
+  height: calc(100vh - 190px);
+}
+
+.testListItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.875rem 1.25rem;
+  align-items: flex-start;
+}
+
+.testTitle {
+  display: flex;
+  align-items: flex-start;
+}
+
+.testIcon {
+  width: auto;
+}
+
+.fullTitle {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.duration {
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+}
+
 .total span {
   font-weight: 600;
 }
@@ -21,7 +52,7 @@
 }
 
 .stats > div {
-  padding: 0.825rem 3rem;;
+  padding: 0.75rem 3rem 1.3rem;
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
