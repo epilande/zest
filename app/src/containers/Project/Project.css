@@ -13,7 +13,7 @@
 
 .testList {
   background-color: var(--lite-grey);
-  height: calc(100vh - 190px);
+  height: calc(100vh - 196px);
 }
 
 .testListItem {
@@ -35,6 +35,24 @@
 .fullTitle {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+}
+
+.errMessage {
+  position: relative;
+  margin-top: 5px;
+  padding: 0 0.75rem 0 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.errMessage::before {
+  content: '';
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  background: var(--error);
 }
 
 .duration {

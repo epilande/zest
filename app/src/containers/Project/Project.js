@@ -32,11 +32,20 @@ class Project extends Component {
   }
 
   renderListItem(test, key, status) {
+    let message;
+    if (status === 'failure' && test.err) {
+      message = test.err.message;
+    }
     return (
       <ListItem className={styles.testListItem} key={key}>
         <div className={styles.testTitle}>
           <Status className={styles.testIcon} type={status} />
-          <div className={styles.fullTitle}>{test.fullTitle}</div>
+          <div>
+            <div className={styles.fullTitle}>{test.fullTitle}</div>
+            {message &&
+              <div className={styles.errMessage}>{message}</div>
+            }
+          </div>
         </div>
         <div className={styles.duration}>{test.duration}ms</div>
       </ListItem>
