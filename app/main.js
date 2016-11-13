@@ -41,7 +41,7 @@ const installExtensions = async () => {
 // menubar
 const mb = menubar({
   width: 500,
-  height: 700,
+  height: 500,
   preloadWindow: true,
   resizable: false,
   transparent: true,
