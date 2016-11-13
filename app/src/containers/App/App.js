@@ -35,7 +35,7 @@ class App extends Component {
     ipcRenderer.send(INIT_APP);
 
     ipcRenderer.on('test results', (event, { /* projectPath, */ projectPath, ...rest }) => {
-      updateProject(projectPath, rest)
+      updateProject(projectPath, rest);
     });
 
     ipcRenderer.on('test error', (event, error) => {
