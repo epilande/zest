@@ -6,6 +6,7 @@ import Project from 'containers/Project';
 
 export default (
   <Route path="/" component={App}>
+    <IndexRedirect to="/selection" />
     <Route path="selection" component={Selection} />
     <Route path="project" component={Project} />
   </Route>
