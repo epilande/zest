@@ -12,6 +12,8 @@
 }
 
 body {
-  font-family: var(--baseFont);
   color: var(--dark-text);
+  font-family: var(--baseFont);
+  font-weight: 300;
+  letter-spacing: 0.1px;
 }
