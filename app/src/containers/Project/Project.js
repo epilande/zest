@@ -1,3 +1,4 @@
+import { ipcRenderer } from 'electron';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -24,12 +25,17 @@ class Project extends Component {
 
   constructor(props) {
     super(props);
+    this.runTests = this.runTests.bind(this);
     this.state = {
     };
   }
 
   componentDidMount () {
     const { projectPath } = this.props;
+  }
+
+  runTests() {
+    ipcRenderer.send('execute test', this.props.project.projectPath);
   }
 
   renderListItem(test, key, status) {
@@ -78,7 +84,7 @@ class Project extends Component {
           }
         />
         <div className={styles.status}>
-          <div>Idle</div>
+          <div>{project.inProgress ? 'Busy' : 'Idle'}</div>
           <div className={styles.total}><span>{project.stats ? project.stats.tests : '-'}</span> Tests</div>
         </div>
         <div className={styles.stats}>
@@ -93,7 +99,7 @@ class Project extends Component {
           {failures}
         </List>
         <div className={styles.action}>
-          <Button>Run Tests</Button>
+          <Button onClick={this.runTests}>Run Tests</Button>
         </div>
       </div>
     );
