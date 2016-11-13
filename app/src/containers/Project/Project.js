@@ -48,12 +48,12 @@ class Project extends Component {
         />
         <div className={styles.status}>
           <div>Idle</div>
-          <div className={styles.total}><span>{project.stats.tests}</span> Tests</div>
+          <div className={styles.total}><span>{project.stats ? project.stats.tests : '-'}</span> Tests</div>
         </div>
         <div className={styles.stats}>
-          <Status size="large" type="passing">{project.stats.passes}</Status>
-          <Status size="large" type="pending">{project.stats.pending}</Status>
-          <Status size="large" type="failure">{project.stats.failures}</Status>
+          <Status size="large" type="passing">{project.stats ? project.stats.passes : '-'}</Status>
+          <Status size="large" type="pending">{project.stats ? project.stats.pending : '-'}</Status>
+          <Status size="large" type="failure">{project.stats ? project.stats.failures : '-'}</Status>
         </div>
 
         <p>{JSON.stringify(project)}</p>
