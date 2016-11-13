@@ -28,7 +28,7 @@ class Project extends Component {
       <div className={styles.base}>
         <Link to="/">Back</Link>
           <Header
-            title={projectUtil.formatProjectName(project.projectPath)}
+            title={project && projectUtil.formatProjectName(project.projectPath)}
             leftCorner="Back"
             rightCorner="Next"
           />
