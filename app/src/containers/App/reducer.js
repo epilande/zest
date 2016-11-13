@@ -2,6 +2,7 @@ import {
   SET_PROJECTS,
   UPDATE_PROJECT,
   UPDATE_PROJECT_PROGRESS,
+  ADD_PROJECT,
   DELETE_PROJECT,
 } from './constants';
 
@@ -61,6 +62,14 @@ function removeProject(projects, projectPath) {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case ADD_PROJECT:
+      return {
+        ...state,
+        projects: [
+          ...state.projects,
+          { projectPath: action.projectPath, inProgress: action.inProgress },
+        ],
+      };
     case SET_PROJECTS:
       return {
         ...state,
