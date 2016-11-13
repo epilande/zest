@@ -1,0 +1,19 @@
+@import "styles/utils/colors.css";
+
+.title {
+  background: var(--lite-grey);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.875rem;
+  letter-spacing: 0.2px;
+  padding: 0.5rem 1.25rem;
+}
+
+.addIcon {
+  cursor: pointer;
+}
+
+.projectPath {
+  text-decoration: none;
+  color: var(--dark-text);
+}

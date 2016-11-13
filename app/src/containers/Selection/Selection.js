@@ -3,6 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import Header from 'components/Header';
+import List from 'components/List';
+import ListItem from 'components/ListItem';
 import AddIcon from 'components/icons/Add';
 
 import {
@@ -54,22 +56,27 @@ class Selection extends Component {
       const { projectPath } = project;
       const onClickHandler = () => selectProjectPath(project);
       return (
-        <Link
-          key={projectPath}
-          to="/project"
-          onClick={onClickHandler}
-        >
-          {projectUtil.formatProjectName(projectPath)}
-        </Link>
+        <ListItem key={projectPath}>
+          <Link
+            className={styles.projectPath}
+            to="/project"
+            onClick={onClickHandler}
+          >
+            {projectUtil.formatProjectName(projectPath)}
+          </Link>
+        </ListItem>
       );
     });
     return (
       <div className={styles.base}>
         <Header
           title="Zest"
-          leftControl={<AddIcon onClick={this.setProjectDir} />}
+          leftControl={<AddIcon className={styles.addIcon} onClick={this.setProjectDir} />}
         />
-        {links}
+        <div className={styles.title}>Projects</div>
+        <List>
+          {links}
+        </List>
       </div>
     );
   }
