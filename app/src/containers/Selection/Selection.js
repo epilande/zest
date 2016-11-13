@@ -5,12 +5,18 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 import styles from './Selection.css';
 
+function formatProjectName(projectPath) {
+  return projectPath.slice(projectPath.lastIndexOf('/'));
+}
+
 class Selection extends Component {
   static defaultProps = {
     projects: [],
+    selectProjectPath: () => {},
   }
   static propTypes = {
     projects: PropTypes.arrayOf(PropTypes.object),
+    selectProjectPath: PropTypes.function,
   }
 
   constructor(props) {
@@ -20,19 +26,34 @@ class Selection extends Component {
   }
 
   render() {
-    const { projects } = this.props;
+    const {
+      projects,
+      selectProjectPath,
+    } = this.props;
+    const links = projects.map((project) => {
+      const { projectPath } = project;
+      const onClickHandler = () => selectProjectPath(project);
+      return (
+        <Link
+          key={projectPath}
+          to="/project"
+          onClick={onClickHandler}
+        >
+          {formatProjectName(projectPath)}
+        </Link>
+      );
+    });
     return (
       <div className={styles.base}>
         <Link to="/">Back</Link>
         <button onClick={this.setProjectDir}>Select Project Folder</button>
-        {JSON.stringify(projects)}
+        {links}
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     projects: state.global.projects,
   };

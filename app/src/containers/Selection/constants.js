@@ -1,0 +1,1 @@
+export const SELECT_PROJECT = 'App/SELECT_PROJECT';
