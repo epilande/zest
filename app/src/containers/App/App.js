@@ -41,15 +41,12 @@ class App extends Component {
   render() {
     return (
       <div className={styles.base}>
-        <div className={styles.trayTriangle} />
         <Link to="/selection">Selection page</Link>
         <Link to="/project">Project page</Link>
-        <main className={styles.main}>
-          {this.props.children}
-          <button onClick={this.setProjectDir}>Select Project Folder</button>
-          <p>{this.state.projectPath}</p>
-          <p>{JSON.stringify(this.state.results)}</p>
-        </main>
+        {this.props.children}
+        <button onClick={this.setProjectDir}>Select Project Folder</button>
+        <p>{this.state.projectPath}</p>
+        <p>{JSON.stringify(this.state.results)}</p>
       </div>
     );
   }
