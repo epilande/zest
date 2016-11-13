@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { remote, ipcRenderer } from 'electron';
 
 import styles from './App.css';
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.setProjectDir = this.setProjectDir.bind(this);
@@ -41,7 +42,10 @@ export default class App extends Component {
     return (
       <div className={styles.base}>
         <div className={styles.trayTriangle} />
+        <Link to="/selection">Selection page</Link>
+        <Link to="/project">Project page</Link>
         <main className={styles.main}>
+          {this.props.children}
           <button onClick={this.setProjectDir}>Select Project Folder</button>
           <p>{this.state.projectPath}</p>
           <p>{JSON.stringify(this.state.results)}</p>
@@ -50,3 +54,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default App;
