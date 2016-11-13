@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Header from 'components/Header';
-// import List from 'components/List';
-// import ListItem from 'components/ListItem';
+import List from 'components/List';
+import ListItem from 'components/ListItem';
 import Status from 'components/Status';
 import PreviousIcon from 'components/icons/Previous';
 
@@ -31,9 +31,28 @@ class Project extends Component {
     const { projectPath } = this.props;
   }
 
+  renderListItem(test, key, status) {
+    return (
+      <ListItem key={key}>
+        <Status type={status} />
+        <div className={styles.fullTitle}>{test.fullTitle}</div>
+        <div className={styles.duration}>{test.duration}ms</div>
+      </ListItem>
+    );
+  }
+
   render() {
     const { project } = this.props;
-    console.log('project: ', project);
+
+    let passing
+    let pending
+    let failures
+    if (project.passes) {
+      passing = project.passes.map((test, index) => this.renderListItem(test, index, 'passing'));
+      pending = project.pending.map((test, index) => this.renderListItem(test, index, 'pending'));
+      failures = project.failures.map((test, index) => this.renderListItem(test, index, 'failure'));
+    }
+
     return (
       <div className={styles.base}>
         <Header
@@ -56,7 +75,11 @@ class Project extends Component {
           <Status size="large" type="failure">{project.stats ? project.stats.failures : '-'}</Status>
         </div>
 
-        <p>{JSON.stringify(project)}</p>
+        <List>
+          {passing}
+          {pending}
+          {failures}
+        </List>
       </div>
     );
   }
