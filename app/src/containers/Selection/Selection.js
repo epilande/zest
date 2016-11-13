@@ -2,6 +2,7 @@ import { remote, ipcRenderer } from 'electron';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { test as testUtils } from 'utils';
 import Header from 'components/Header';
 import List from 'components/List';
 import ListItem from 'components/ListItem';
@@ -59,7 +60,6 @@ class Selection extends Component {
       console.log('project: ', project);
       return (
         <ListItem
-          className={styles.project}
           key={projectPath}
         >
           <Link
@@ -67,18 +67,20 @@ class Selection extends Component {
             to="/project"
             onClick={onClickHandler}
           >
-            {projectUtil.formatProjectName(projectPath)}
-          </Link>
-          <div>
+            <div>
+              <div>
+                {projectUtil.formatProjectName(projectPath)}
+              </div>
+              {updatedAt &&
+                  <div className={styles.updatedAt}>{testUtils.formatTime(updatedAt)}</div>
+              }
+            </div>
             <div className={styles.stats}>
               <Status type="passing">{stats.passes}</Status>
               <Status type="pending">{stats.pending}</Status>
               <Status type="failure">{stats.failures}</Status>
             </div>
-            {updatedAt &&
-              <div className={styles.updatedAt}>{updatedAt}</div>
-            }
-          </div>
+          </Link>
         </ListItem>
       );
     });

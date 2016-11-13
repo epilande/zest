@@ -4,10 +4,6 @@
   font-weight: 600;
 }
 
-.icon {
-  margin-right: 0.25rem;
-}
-
 .passing {
   stroke: var(--success);
 }
@@ -32,14 +28,17 @@
 
 .small {
   display: flex;
-  flex-direction: row-reverse;
+  align-items: center;
+  flex-direction: column;
   justify-content: center;
   color: var(--text);
   width: 65px;
+  font-size: 0.825rem;
 }
 
 .small .amount {
   font-weight: 400;
+  margin-bottom: 4px;
 }
 
 .large {

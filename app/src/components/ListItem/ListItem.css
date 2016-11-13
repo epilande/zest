@@ -1,7 +1,6 @@
 @import "styles/utils/colors.css";
 
 .base {
-  padding: 0.875rem 1.25rem;
   border-bottom: 0.0625rem solid var(--border);
   list-style: none;
 }

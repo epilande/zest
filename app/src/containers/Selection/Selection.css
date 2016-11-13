@@ -13,18 +13,22 @@
   cursor: pointer;
 }
 
-.project {
-  display: flex;
+.projectPath {
+  padding: 0.875rem 1.25rem;
   justify-content: space-between;
   align-items: center;
-}
-
-.projectPath {
+  display: flex;
   text-decoration: none;
   color: var(--dark-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.projectPath:hover {
+  background-color: var(--lite-grey);
 }
 
 .stats {
@@ -37,7 +41,7 @@
 }
 
 .updatedAt {
+  margin-top: 2px;
   font-size: 0.825rem;
-  text-align: center;
   color: var(--lite-text);
 }
