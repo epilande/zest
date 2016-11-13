@@ -1,5 +1,10 @@
-import { UPDATE_TEXT } from './constants';
+import {
+  SET_PROJECTS,
+} from './constants';
 
-export function updateText(text) {
-  return { type: UPDATE_TEXT, text };
+export function setProjects(projects) {
+  return {
+    type: SET_PROJECTS,
+    projects,
+  };
 }

@@ -5,6 +5,11 @@ import runMocha from './lib/start';
 import createPathWatcher from './lib/watch';
 import { getProjects, updateProject } from './lib/storage';
 
+import {
+  INIT_APP,
+  SET_PROJECTS,
+} from './src/ipc-events';
+
 const app = electron.app;
 
 // Quit when all windows are closed.
@@ -62,6 +67,12 @@ mb.on('after-create-window', () => {
   // Move to a function call triggered by the frontend.
   // ====================================================================
   mb.window.webContents.on('dom-ready', () => {
+    ipcMain.on(INIT_APP, function () {
+      return getProjects((err, projects) => {
+        return mb.window.webContents.send(SET_PROJECTS, projects);
+      });
+    });
+
     ipcMain.on('watch directory', (event, path) => {
       let watcher;
       let running = false;
