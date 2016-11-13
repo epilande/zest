@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
+import CircleIcon from 'components/icons/Circle';
 import styles from './Status.css';
 
 const cx = classNames.bind(styles);
@@ -16,19 +17,16 @@ const Status = ({
     size,
   );
 
-  let icon;
-  switch (type) {
-    case 'passing':
-      icon = 'passing';
-      break;
-    case 'pending':
-      icon = 'pending';
-      break;
-    case 'failure':
-      icon = 'failure';
-      break;
-    default:
-      console.warn('`type` not supported'); // eslint-disable-line
+  const iconClasses = cx(
+    'icon',
+    type,
+  );
+
+  let strokeWidth = 3;
+  let iconSize = 16;
+  if (size === 'large') {
+    strokeWidth = 4;
+    iconSize = 22;
   }
 
   return (
@@ -38,7 +36,7 @@ const Status = ({
     >
       <div className={styles.amount}>{props.children}</div>
       <div className={styles.label}>
-        <div className={styles.icon}>{icon}</div>
+        <CircleIcon className={iconClasses} size={iconSize} strokeWidth={strokeWidth} />
         {(size === 'large') &&
           <div className={styles.typeText}>{type}</div>
         }
