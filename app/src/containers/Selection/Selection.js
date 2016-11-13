@@ -2,6 +2,8 @@ import { remote, ipcRenderer } from 'electron';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import Header from 'components/Header';
+import AddIcon from 'components/icons/Add';
 
 import {
   project as projectUtil,
@@ -63,8 +65,10 @@ class Selection extends Component {
     });
     return (
       <div className={styles.base}>
-        <Link to="/">Back</Link>
-        <button onClick={this.setProjectDir}>Select Project Folder</button>
+        <Header
+          title="Zest"
+          leftControl={<AddIcon onClick={this.setProjectDir} />}
+        />
         {links}
       </div>
     );

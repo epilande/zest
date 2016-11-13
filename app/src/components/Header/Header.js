@@ -1,17 +1,21 @@
 import React, { PropTypes } from 'react';
 import styles from './Header.css';
 
-const Header = ({ title, leftCorner, rightCorner }) => (
+const Header = ({ title, leftControl, rightControl }) => (
   <div className={styles.base}>
-    <div>
-      {leftCorner}
-    </div>
-    <div>
+    {leftControl &&
+      <div>
+        {leftControl}
+      </div>
+    }
+    <div className={styles.title}>
       {title}
     </div>
-    <div>
-      {rightCorner}
-    </div>
+    {rightControl &&
+      <div>
+        {rightControl}
+      </div>
+    }
   </div>
 );
 
@@ -21,8 +25,8 @@ Header.defaultProps = {
 
 Header.propTypes = {
   title: PropTypes.node,
-  leftCorner: PropTypes.node,
-  rightCorner: PropTypes.node,
+  leftControl: PropTypes.node,
+  rightControl: PropTypes.node,
 };
 
 export default Header;
