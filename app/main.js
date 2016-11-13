@@ -3,6 +3,7 @@ import electron, { ipcMain } from 'electron';
 
 import runMocha from './lib/start';
 import createPathWatcher from './lib/watch';
+import { getProjects, updateProject } from './lib/storage';
 
 const app = electron.app;
 
@@ -46,7 +47,13 @@ function runTest(projectPath, callback = function noop() {}) {
       projectPath,
       results: data,
     };
-    return mb.window.webContents.send('test results', payload);
+    const persistedStats = {
+      ...data.stats,
+      updatedAt: new Date(),
+    };
+    return updateProject(projectPath, persistedStats, (/* err */) => {
+      return mb.window.webContents.send('test results', payload);
+    });
   });
 }
 mb.on('after-create-window', () => {
