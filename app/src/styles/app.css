@@ -5,10 +5,6 @@
 @import "styles/utils/colors.css";
 @import "styles/utils/fonts.css";
 
-:root {
-  background: #fff;
-}
-
 * {
   margin: 0;
   padding: 0;
