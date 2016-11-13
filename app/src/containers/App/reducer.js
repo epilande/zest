@@ -3,6 +3,7 @@ import {
   UPDATE_PROJECT,
   UPDATE_PROJECT_PROGRESS,
   ADD_PROJECT,
+  DELETE_PROJECT,
 } from './constants';
 
 import {
@@ -47,6 +48,18 @@ function replaceProject(projects, projectPath, results) {
   ];
 }
 
+function removeProject(projects, projectPath) {
+  const foundProjectIndex = projects.findIndex(project => project.projectPath === projectPath);
+  if (foundProjectIndex < 0) {
+    return projects;
+  }
+
+  return [
+    ...projects.slice(0, foundProjectIndex),
+    ...projects.slice(foundProjectIndex + 1),
+  ];
+}
+
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case ADD_PROJECT:
@@ -76,6 +89,11 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         projects: updateProjectProgress(state.projects, action.projectPath, action.inProgress),
+      };
+    case DELETE_PROJECT:
+      return {
+        ...state,
+        projects: removeProject(state.projects, action.projectPath),
       };
     default:
       return state;

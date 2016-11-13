@@ -1,8 +1,11 @@
+import { ipcRenderer } from 'electron';
+
 import {
   SET_PROJECTS,
   UPDATE_PROJECT,
   UPDATE_PROJECT_PROGRESS,
   ADD_PROJECT,
+  DELETE_PROJECT,
 } from './constants';
 
 export function initializeProject(projectPath) {
@@ -35,5 +38,12 @@ export function updateProjectProgress(projectPath, inProgress) {
     type: UPDATE_PROJECT_PROGRESS,
     projectPath,
     inProgress,
+  };
+}
+
+export function deleteProject(projectPath) {
+  return {
+    type: DELETE_PROJECT,
+    projectPath,
   };
 }
