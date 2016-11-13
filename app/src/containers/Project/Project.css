@@ -1,0 +1,87 @@
+@import "styles/utils/colors.css";
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  background: var(--lite-grey);
+  border: 1px solid var(--border);
+  color: var(--dark-text);
+  font-size: 0.875rem;
+  letter-spacing: 0.2px;
+  padding: 0.5rem 1.25rem;
+}
+
+.testList {
+  background-color: var(--lite-grey);
+  height: calc(100vh - 268px);
+}
+
+.testListItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.875rem 1.25rem;
+  align-items: flex-start;
+}
+
+.testTitle {
+  display: flex;
+  align-items: flex-start;
+}
+
+.testIcon {
+  width: auto;
+}
+
+.fullTitle {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.errMessage {
+  position: relative;
+  margin-top: 5px;
+  padding: 0 0.75rem 0 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.errMessage::before {
+  content: '';
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  background: var(--error);
+}
+
+.duration {
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+}
+
+.total span {
+  font-weight: 600;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats > div {
+  padding: 0.75rem 1rem 1.3rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  flex: 1;
+}
+
+.stats > div:last-child {
+  border-right: 0;
+}
+
+.action {
+  text-align: center;
+  padding: 1rem;
+  background: var(--white);
+}

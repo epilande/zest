@@ -47,10 +47,11 @@ const installExtensions = async () => {
 
 // menubar
 const mb = menubar({
-  width: 500,
-  height: 500,
+  minWidth: 500,
+  maxWidth: 500,
+  minHeight: 500,
   preloadWindow: true,
-  resizable: false,
+  resizable: true,
   transparent: true,
 });
 
