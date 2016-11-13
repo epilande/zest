@@ -14,7 +14,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    ipcRenderer.on('test results', (event, results) => {
+    ipcRenderer.on('test results', (event, { /* projectPath, */ results }) => {
       console.log('results: ', results);
       this.setState({ results });
     });
@@ -31,6 +31,7 @@ export default class App extends Component {
     if (dir) {
       const [path] = dir;
       this.setState({ projectPath: path, results: {} }, () => {
+        ipcRenderer.send('watch directory', path);
         ipcRenderer.send('execute test', path);
       });
     }
