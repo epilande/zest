@@ -14,9 +14,20 @@ const initialState = {
 function replaceProject(projects, projectPath, results) {
   const projectToUpdate = {
     projectPath,
-    results,
+    ...results,
   };
-  return projects.map(project => (project.projectPath === projectPath ? projectToUpdate : project));
+
+  const foundProjectIndex = projects.findIndex(project => project.projectPath === projectPath);
+
+  if (foundProjectIndex < 0) {
+    return projects.concat(projectToUpdate);
+  }
+
+  return [
+    ...projects.slice(0, foundProjectIndex),
+    projectToUpdate,
+    ...projects.slice(foundProjectIndex + 1),
+  ];
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -32,9 +43,10 @@ export default function reducer(state = initialState, action = {}) {
         selectedProjectPath: action.projectPath,
       };
     case UPDATE_PROJECT:
+      const { projectPath, type, ...results } = action;
       return {
         ...state,
-        projects: replaceProject(state.projects, action.projectPath, action.results),
+        projects: replaceProject(state.projects, projectPath, results),
       };
     default:
       return state;

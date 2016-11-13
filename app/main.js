@@ -41,7 +41,7 @@ const installExtensions = async () => {
 // menubar
 const mb = menubar({
   width: 500,
-  height: 700,
+  height: 500,
   preloadWindow: true,
   resizable: false,
   transparent: true,
@@ -68,7 +68,8 @@ function runTest(projectPath, callback = function noop() {}) {
     }
     const payload = {
       projectPath,
-      results: data,
+      ...data,
+      updatedAt: new Date(),
     };
     const persistedStats = {
       stats: data.stats,

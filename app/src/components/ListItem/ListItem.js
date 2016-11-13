@@ -32,7 +32,7 @@ const ListItem = ({
 ListItem.defaultProps = {};
 
 ListItem.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.node,
   className: PropTypes.string,
   onClick: PropTypes.func,
 };

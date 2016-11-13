@@ -1,11 +1,7 @@
 @import "styles/utils/colors.css";
 
 .amount {
-  font-weight: bold;
-}
-
-.icon {
-  margin-right: 0.25rem;
+  font-weight: 600;
 }
 
 .passing {
@@ -32,9 +28,17 @@
 
 .small {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   color: var(--text);
+  width: 65px;
+  font-size: 0.825rem;
+}
+
+.small .amount {
+  font-weight: 400;
+  margin-bottom: 4px;
 }
 
 .large {

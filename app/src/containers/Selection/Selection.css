@@ -1,0 +1,50 @@
+@import "styles/utils/colors.css";
+
+.title {
+  background: var(--lite-grey);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.875rem;
+  letter-spacing: 0.2px;
+  padding: 0.5rem 1.25rem;
+}
+
+.addIcon {
+  cursor: pointer;
+}
+
+.project {
+  padding: 0.875rem 1.25rem;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  text-decoration: none;
+  color: var(--dark-text);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.project:hover {
+  background-color: var(--lite-grey);
+}
+
+.projectPath {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selectionList {
+  height: calc(100vh - 116px);
+}
+
+.updatedAt {
+  margin-top: 2px;
+  font-size: 0.825rem;
+  color: var(--lite-text);
+}

@@ -2,6 +2,12 @@ import { remote, ipcRenderer } from 'electron';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { test as testUtils } from 'utils';
+import Header from 'components/Header';
+import List from 'components/List';
+import ListItem from 'components/ListItem';
+import Status from 'components/Status';
+import AddIcon from 'components/icons/Add';
 
 import {
   project as projectUtil,
@@ -49,23 +55,51 @@ class Selection extends Component {
       selectProjectPath,
     } = this.props;
     const links = projects.map((project) => {
-      const { projectPath } = project;
+      const { stats, updatedAt, projectPath } = project;
       const onClickHandler = () => selectProjectPath(project);
+      console.log('project: ', project);
       return (
-        <Link
+        <ListItem
           key={projectPath}
-          to="/project"
-          onClick={onClickHandler}
         >
-          {projectUtil.formatProjectName(projectPath)}
-        </Link>
+          <Link
+            className={styles.project}
+            to="/project"
+            onClick={onClickHandler}
+          >
+            <div>
+              <div className={styles.projectPath}>
+                {projectUtil.formatProjectName(projectPath)}
+              </div>
+              {updatedAt &&
+                  <div className={styles.updatedAt}>{testUtils.formatTime(updatedAt)}</div>
+              }
+            </div>
+            <div className={styles.stats}>
+              <Status type="passing">{stats.passes}</Status>
+              <Status type="pending">{stats.pending}</Status>
+              <Status type="failure">{stats.failures}</Status>
+            </div>
+          </Link>
+        </ListItem>
       );
     });
     return (
       <div className={styles.base}>
-        <Link to="/">Back</Link>
-        <button onClick={this.setProjectDir}>Select Project Folder</button>
-        {links}
+        <Header
+          title="Zest"
+          leftControl={
+            <AddIcon
+              className={styles.addIcon}
+              onClick={this.setProjectDir}
+              size={18}
+            />
+          }
+        />
+        <div className={styles.title}>Projects</div>
+        <List className={styles.selectionList}>
+          {links}
+        </List>
       </div>
     );
   }
