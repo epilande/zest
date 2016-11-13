@@ -57,7 +57,7 @@ class Selection extends Component {
     const links = projects.map((project) => {
       const { stats, updatedAt, projectPath } = project;
       const onClickHandler = () => selectProjectPath(project);
-      console.log('project: ', project);
+
       return (
         <ListItem
           key={projectPath}
@@ -72,7 +72,7 @@ class Selection extends Component {
                 {projectUtil.formatProjectName(projectPath)}
               </div>
               {updatedAt &&
-                  <div className={styles.updatedAt}>{testUtils.formatTime(updatedAt)}</div>
+                <div className={styles.updatedAt}>{testUtils.formatTime(updatedAt)}</div>
               }
             </div>
             <div className={styles.stats}>

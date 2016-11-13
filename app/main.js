@@ -8,6 +8,7 @@ import { getProjects, updateProject } from './lib/storage';
 import {
   INIT_APP,
   SET_PROJECTS,
+  TEST_START,
 } from './src/ipc-events';
 
 const app = electron.app;
@@ -61,10 +62,11 @@ const pathWatchers = {};
  * @return {[type]}      [description]
  */
 function runTest(projectPath, callback = function noop() {}) {
+  mb.window.webContents.send(TEST_START, projectPath);
   return runMocha(projectPath, (err, data) => {
     callback(err, data);
     if (err) {
-      return mb.window.webContents.send('test error', err);
+      return mb.window.webContents.send('test error', err, projectPath);
     }
     const payload = {
       projectPath,

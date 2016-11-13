@@ -1,6 +1,7 @@
 import {
   SET_PROJECTS,
   UPDATE_PROJECT,
+  UPDATE_PROJECT_PROGRESS,
 } from './constants';
 
 import {
@@ -11,17 +12,37 @@ const initialState = {
   projects: [],
 };
 
+function updateProjectProgress(projects, projectPath, inProgress) {
+  const projectIndex = projects.findIndex(project => project.projectPath === projectPath);
+
+  if (projectIndex < 0) {
+    return projects;
+  }
+  const project = projects[projectIndex];
+
+  return [
+    ...projects.slice(0, projectIndex),
+    { ...project, inProgress },
+    ...projects.slice(projectIndex + 1),
+  ];
+}
+
 function replaceProject(projects, projectPath, results) {
+  console.log(results);
   const projectToUpdate = {
     projectPath,
     ...results,
   };
+  console.log('project to update');
+  console.log(results);
 
   const foundProjectIndex = projects.findIndex(project => project.projectPath === projectPath);
 
   if (foundProjectIndex < 0) {
     return projects.concat(projectToUpdate);
   }
+
+  console.log(projectToUpdate);
 
   return [
     ...projects.slice(0, foundProjectIndex),
@@ -43,10 +64,14 @@ export default function reducer(state = initialState, action = {}) {
         selectedProjectPath: action.projectPath,
       };
     case UPDATE_PROJECT:
-      const { projectPath, type, ...results } = action;
       return {
         ...state,
-        projects: replaceProject(state.projects, projectPath, results),
+        projects: replaceProject(state.projects, action.projectPath, action.results),
+      };
+    case UPDATE_PROJECT_PROGRESS:
+      return {
+        ...state,
+        projects: updateProjectProgress(state.projects, action.projectPath, action.inProgress),
       };
     default:
       return state;
