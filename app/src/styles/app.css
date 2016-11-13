@@ -5,6 +5,10 @@
 @import "styles/utils/colors.css";
 @import "styles/utils/fonts.css";
 
+:root {
+  font-size: 14px;
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -22,11 +22,11 @@ const Status = ({
     type,
   );
 
-  let strokeWidth = 3;
-  let iconSize = 16;
+  let strokeWidth = 2;
+  let iconSize = 14;
   if (size === 'large') {
-    strokeWidth = 4;
-    iconSize = 22;
+    strokeWidth = 3;
+    iconSize = 20;
   }
 
   return (

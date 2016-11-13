@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Header from 'components/Header';
 import List from 'components/List';
 import ListItem from 'components/ListItem';
+import Status from 'components/Status';
 import AddIcon from 'components/icons/Add';
 
 import {
@@ -53,10 +54,14 @@ class Selection extends Component {
       selectProjectPath,
     } = this.props;
     const links = projects.map((project) => {
-      const { projectPath } = project;
+      const { stats, updatedAt, projectPath } = project;
       const onClickHandler = () => selectProjectPath(project);
+      console.log('project: ', project);
       return (
-        <ListItem key={projectPath}>
+        <ListItem
+          className={styles.project}
+          key={projectPath}
+        >
           <Link
             className={styles.projectPath}
             to="/project"
@@ -64,6 +69,16 @@ class Selection extends Component {
           >
             {projectUtil.formatProjectName(projectPath)}
           </Link>
+          <div>
+            <div className={styles.stats}>
+              <Status type="passing">{stats.passes}</Status>
+              <Status type="pending">{stats.pending}</Status>
+              <Status type="failure">{stats.failures}</Status>
+            </div>
+            {updatedAt &&
+              <div className={styles.updatedAt}>{updatedAt}</div>
+            }
+          </div>
         </ListItem>
       );
     });
@@ -71,10 +86,16 @@ class Selection extends Component {
       <div className={styles.base}>
         <Header
           title="Zest"
-          leftControl={<AddIcon className={styles.addIcon} onClick={this.setProjectDir} />}
+          leftControl={
+            <AddIcon
+              className={styles.addIcon}
+              onClick={this.setProjectDir}
+              size={18}
+            />
+          }
         />
         <div className={styles.title}>Projects</div>
-        <List>
+        <List className={styles.selectionList}>
           {links}
         </List>
       </div>

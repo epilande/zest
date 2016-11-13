@@ -13,7 +13,31 @@
   cursor: pointer;
 }
 
+.project {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .projectPath {
   text-decoration: none;
   color: var(--dark-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selectionList {
+  height: calc(100vh - 116px);
+}
+
+.updatedAt {
+  font-size: 0.825rem;
+  text-align: center;
+  color: var(--lite-text);
 }
