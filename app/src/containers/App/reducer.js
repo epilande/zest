@@ -2,6 +2,7 @@ import {
   SET_PROJECTS,
   UPDATE_PROJECT,
   UPDATE_PROJECT_PROGRESS,
+  ADD_PROJECT,
 } from './constants';
 
 import {
@@ -28,21 +29,16 @@ function updateProjectProgress(projects, projectPath, inProgress) {
 }
 
 function replaceProject(projects, projectPath, results) {
-  console.log(results);
   const projectToUpdate = {
     projectPath,
     ...results,
   };
-  console.log('project to update');
-  console.log(results);
 
   const foundProjectIndex = projects.findIndex(project => project.projectPath === projectPath);
 
   if (foundProjectIndex < 0) {
     return projects.concat(projectToUpdate);
   }
-
-  console.log(projectToUpdate);
 
   return [
     ...projects.slice(0, foundProjectIndex),
@@ -53,6 +49,14 @@ function replaceProject(projects, projectPath, results) {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case ADD_PROJECT:
+      return {
+        ...state,
+        projects: [
+          ...state.projects,
+          { projectPath: action.projectPath, inProgress: action.inProgress },
+        ],
+      };
     case SET_PROJECTS:
       return {
         ...state,
