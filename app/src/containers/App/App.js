@@ -14,27 +14,28 @@ import styles from './App.css';
 class App extends Component {
   static propTypes = {
     children: PropTypes.element,
+    setProjects: PropTypes.func,
+    updateProject: PropTypes.func,
   };
   constructor(props) {
     super(props);
     this.state = {
-      projectPath: '',
-      results: {},
     };
   }
 
   componentDidMount() {
-    const { setProjects } = this.props;
+    const {
+      setProjects,
+      updateProject,
+    } = this.props;
     ipcRenderer.on(SET_PROJECTS, (event, projects) => {
       setProjects(projects);
     });
 
     ipcRenderer.send(INIT_APP);
 
-    ipcRenderer.on('test results', (event, { /* projectPath, */ results }) => {
-      console.log('results: ', results);
-      ipcRenderer.send(INIT_APP);
-      this.setState({ results });
+    ipcRenderer.on('test results', (event, { /* projectPath, */ projectPath, ...rest }) => {
+      updateProject(projectPath, rest)
     });
 
     ipcRenderer.on('test error', (event, error) => {

@@ -71,7 +71,7 @@ function runTest(projectPath, callback = function noop() {}) {
       results: data,
     };
     const persistedStats = {
-      ...data.stats,
+      stats: data.stats,
       updatedAt: new Date(),
     };
     return updateProject(projectPath, persistedStats, (/* err */) => {
