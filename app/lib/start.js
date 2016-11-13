@@ -61,10 +61,10 @@ function karmaFormatter(jsonObject) {
   }
   formattedObject.stats = {
     suites: null, // could do, but not needed.
-    tests: targetBrowser.total,
-    passes: targetBrowser.success,
-    pending: targetBrowser.skipped,
-    failures: targetBrowser.failed,
+    tests: targetBrowser.lastResult.total,
+    passes: targetBrowser.lastResult.success,
+    pending: targetBrowser.lastResult.skipped,
+    failures: targetBrowser.lastResult.failed,
     start: null, // could figure out if needed
     end: null, // could figure out if needed
     duration: targetBrowser.totalTime,
