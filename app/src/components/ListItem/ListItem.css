@@ -1,0 +1,15 @@
+@import "styles/utils/colors.css";
+
+.item {
+  padding: 0.375rem 0.625rem;
+  border-top: 0.0625rem solid var(--border);
+  list-style: none;
+}
+
+.item:first-child {
+  border-top: 0;
+}
+
+.selectable:hover {
+  cursor: pointer;
+}
