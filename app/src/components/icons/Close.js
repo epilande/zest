@@ -1,16 +1,17 @@
 import React, { PropTypes } from 'react';
 
-const Close = ({ size = 20, stroke = '#36434D', opacity, ...props }) => (
+const Close = ({ size = 20, stroke = '#36434D', strokeWidth, opacity, ...props }) => (
   <svg
     width={size}
     height={Math.round(size * 0.818)}
-    viewBox={`0 0 ${size} ${Math.round(size * 0.818)}`}
+    viewBox="0 0 11 9"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <title>Close</title>
     <g
       stroke={stroke}
+      strokeWidth={strokeWidth}
       opacity={opacity}
       fill="none"
       fillRule="evenodd"
@@ -25,6 +26,7 @@ const Close = ({ size = 20, stroke = '#36434D', opacity, ...props }) => (
 Close.propTypes = {
   size: PropTypes.number,
   stroke: PropTypes.string,
+  strokeWidth: PropTypes.number,
   opacity: PropTypes.number,
 };
 

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const Circle = ({ size = 20, stroke = '#FF6D26', strokeWidth = 2, opacity, ...props }) => (
+const Circle = ({ size = 20, stroke = '#36434D', strokeWidth = 2, opacity, ...props }) => (
   <svg
     width={size}
     height={size}

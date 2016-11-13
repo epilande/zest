@@ -1,16 +1,17 @@
 import React, { PropTypes } from 'react';
 
-const Add = ({ size = 20, stroke = '#36434D', opacity, ...props }) => (
+const Add = ({ size = 20, stroke = '#36434D', strokeWidth, opacity, ...props }) => (
   <svg
     width={size}
     height={size}
-    viewBox={`0 0 ${size} ${size}`}
+    viewBox="0 0 13 13"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <title>Plus</title>
     <g
       stroke={stroke}
+      strokeWidth={strokeWidth}
       opacity={opacity}
       fill="none"
       fillRule="evenodd"
@@ -25,6 +26,7 @@ const Add = ({ size = 20, stroke = '#36434D', opacity, ...props }) => (
 Add.propTypes = {
   size: PropTypes.number,
   stroke: PropTypes.string,
+  strokeWidth: PropTypes.number,
   opacity: PropTypes.number,
 };
 

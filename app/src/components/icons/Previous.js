@@ -1,16 +1,17 @@
 import React, { PropTypes } from 'react';
 
-const Previous = ({ size = 20, stroke = '#36434D', opacity, ...props }) => (
+const Previous = ({ size = 20, stroke = '#36434D', strokeWidth, opacity, ...props }) => (
   <svg
     width={size}
     height={size}
-    viewBox={`0 0 ${size} ${size}`}
+    viewBox="0 0 14 13"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <title>Previous</title>
     <g
       stroke={stroke}
+      strokeWidth={strokeWidth}
       opacity={opacity}
       fill="none"
       fillRule="evenodd"
@@ -25,6 +26,7 @@ const Previous = ({ size = 20, stroke = '#36434D', opacity, ...props }) => (
 Previous.propTypes = {
   size: PropTypes.number,
   stroke: PropTypes.string,
+  strokeWidth: PropTypes.number,
   opacity: PropTypes.number,
 };
 
