@@ -13,22 +13,25 @@
   cursor: pointer;
 }
 
-.projectPath {
+.project {
   padding: 0.875rem 1.25rem;
   justify-content: space-between;
   align-items: center;
   display: flex;
   text-decoration: none;
   color: var(--dark-text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   cursor: pointer;
   transition: background 0.1s;
 }
 
-.projectPath:hover {
+.project:hover {
   background-color: var(--lite-grey);
+}
+
+.projectPath {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .stats {

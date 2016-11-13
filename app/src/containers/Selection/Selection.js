@@ -63,12 +63,12 @@ class Selection extends Component {
           key={projectPath}
         >
           <Link
-            className={styles.projectPath}
+            className={styles.project}
             to="/project"
             onClick={onClickHandler}
           >
             <div>
-              <div>
+              <div className={styles.projectPath}>
                 {projectUtil.formatProjectName(projectPath)}
               </div>
               {updatedAt &&
