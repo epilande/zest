@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { remote, ipcRenderer } from 'electron';
 
+import Header from 'components/Header';
+
 import styles from './App.css';
 
 class App extends Component {
@@ -47,6 +49,7 @@ class App extends Component {
         <button onClick={this.setProjectDir}>Select Project Folder</button>
         <p>{this.state.projectPath}</p>
         <p>{JSON.stringify(this.state.results)}</p>
+        <Header title="Testing 123" leftCorner="Back" rightCorner="Next" />
       </div>
     );
   }
