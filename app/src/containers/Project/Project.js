@@ -12,6 +12,12 @@ import * as actions from './actions';
 import styles from './Project.css';
 
 class Project extends Component {
+  static defaultProps = {
+    project: {
+      projectPath: '',
+    },
+  }
+
   constructor(props) {
     super(props);
     this.state = {

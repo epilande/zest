@@ -1,5 +1,6 @@
 import {
   SET_PROJECTS,
+  UPDATE_PROJECT,
 } from './constants';
 
 import {
@@ -9,6 +10,14 @@ import {
 const initialState = {
   projects: [],
 };
+
+function replaceProject(projects, projectPath, results) {
+  const projectToUpdate = {
+    projectPath,
+    results,
+  };
+  return projects.map(project => (project.projectPath === projectPath ? projectToUpdate : project));
+}
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -21,6 +30,11 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         selectedProjectPath: action.projectPath,
+      };
+    case UPDATE_PROJECT:
+      return {
+        ...state,
+        projects: replaceProject(state.projects, action.projectPath, action.results),
       };
     default:
       return state;
