@@ -5,6 +5,11 @@ import runMocha from './lib/start';
 import createPathWatcher from './lib/watch';
 import { getProjects, updateProject } from './lib/storage';
 
+import {
+  INIT_APP,
+  SET_PROJECTS,
+} from './src/ipc-events';
+
 const app = electron.app;
 
 // Quit when all windows are closed.
@@ -50,7 +55,6 @@ mb.on('ready', async () => {
 });
 
 const pathWatchers = {};
-
 /**
  * Runs the tests for a project path
  * @param  {[type]} path [description]
@@ -75,36 +79,50 @@ function runTest(projectPath, callback = function noop() {}) {
     });
   });
 }
-mb.on('after-create-window', () => {
+
+mb.on('ready', () => {
+  console.log('app is ready'); // eslint-disable-line
+  // your app code here
+
   // ====================================================================
   // This is where the data gets passed to `src/index.js`,
   // Move to a function call triggered by the frontend.
   // ====================================================================
-  mb.window.webContents.on('dom-ready', () => {
-    ipcMain.on('watch directory', (event, path) => {
-      let watcher;
-      let running = false;
-      if (!pathWatchers[path]) {
-        watcher = createPathWatcher(path, (/* filepath */) => {
-          if (!running) {
-            running = true;
-            runTest(path, (/* err, results */) => {
-              running = false;
-            });
-          }
-        });
+  ipcMain.on(INIT_APP, function () {
+    return getProjects((err, projects) => {
+      return mb.window.webContents.send(SET_PROJECTS, projects);
+    });
+  });
 
-        pathWatchers[path] = watcher;
-      }
-    });
-    ipcMain.on('execute test', (event, path) => {
-      runTest(path);
-    });
+  ipcMain.on('watch directory', (event, path) => {
+    let watcher;
+    let running = false;
+    if (!pathWatchers[path]) {
+      watcher = createPathWatcher(path, (/* filepath */) => {
+        if (!running) {
+          running = true;
+          runTest(path, (/* err, results */) => {
+            running = false;
+          });
+        }
+      });
+
+      pathWatchers[path] = watcher;
+    }
+  });
+
+  ipcMain.on('execute test', (event, path) => {
+    runTest(path);
   });
   // ====================================================================
 });
 
 // ipc communication
 ipcMain.on('quit', () => {
+  for (const watcher in pathWatchers) {
+    if ({}.hasOwnProperty.call(pathWatchers, watcher)) {
+      pathWatchers[watcher].close();
+    }
+  }
   app.quit();
 });

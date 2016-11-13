@@ -1,15 +1,26 @@
-import { UPDATE_TEXT } from './constants';
+import {
+  SET_PROJECTS,
+} from './constants';
+
+import {
+  SELECT_PROJECT,
+} from '../Selection/constants';
 
 const initialState = {
-  text: '',
+  projects: [],
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case UPDATE_TEXT:
+    case SET_PROJECTS:
       return {
         ...state,
-        text: action.text,
+        projects: action.projects,
+      };
+    case SELECT_PROJECT:
+      return {
+        ...state,
+        selectedProjectPath: action.projectPath,
       };
     default:
       return state;
