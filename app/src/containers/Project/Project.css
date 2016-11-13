@@ -1,0 +1,31 @@
+@import "styles/utils/colors.css";
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  background: var(--lite-grey);
+  border: 1px solid var(--border);
+  color: var(--dark-text);
+  font-size: 0.875rem;
+  letter-spacing: 0.2px;
+  padding: 0.5rem 1.25rem;
+}
+
+.total span {
+  font-weight: 600;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats > div {
+  padding: 0.825rem 3rem;;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stats > div:last-child {
+  border-right: 0;
+}

@@ -25,8 +25,8 @@ const Status = ({
   let strokeWidth = 2;
   let iconSize = 14;
   if (size === 'large') {
-    strokeWidth = 3;
-    iconSize = 20;
+    strokeWidth = 4;
+    iconSize = 18;
   }
 
   return (
