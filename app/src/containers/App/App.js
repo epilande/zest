@@ -40,12 +40,9 @@ export default class App extends Component {
   render() {
     return (
       <div className={styles.base}>
-        <div className={styles.trayTriangle} />
-        <main className={styles.main}>
-          <button onClick={this.setProjectDir}>Select Project Folder</button>
-          <p>{this.state.projectPath}</p>
-          <p>{JSON.stringify(this.state.results)}</p>
-        </main>
+        <button onClick={this.setProjectDir}>Select Project Folder</button>
+        <p>{this.state.projectPath}</p>
+        <p>{JSON.stringify(this.state.results)}</p>
       </div>
     );
   }
