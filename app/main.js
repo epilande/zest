@@ -30,13 +30,7 @@ const mb = menubar({
   transparent: true,
 });
 
-mb.on('ready', () => {
-  console.log('app is ready'); // eslint-disable-line
-  // your app code here
-});
-
 const pathWatchers = {};
-
 /**
  * Runs the tests for a project path
  * @param  {[type]} path [description]
@@ -61,42 +55,50 @@ function runTest(projectPath, callback = function noop() {}) {
     });
   });
 }
-mb.on('after-create-window', () => {
+
+mb.on('ready', () => {
+  console.log('app is ready'); // eslint-disable-line
+  // your app code here
+
   // ====================================================================
   // This is where the data gets passed to `src/index.js`,
   // Move to a function call triggered by the frontend.
   // ====================================================================
-  mb.window.webContents.on('dom-ready', () => {
-    ipcMain.on(INIT_APP, function () {
-      return getProjects((err, projects) => {
-        return mb.window.webContents.send(SET_PROJECTS, projects);
+  ipcMain.on(INIT_APP, function () {
+    return getProjects((err, projects) => {
+      return mb.window.webContents.send(SET_PROJECTS, projects);
+    });
+  });
+
+  ipcMain.on('watch directory', (event, path) => {
+    let watcher;
+    let running = false;
+    if (!pathWatchers[path]) {
+      watcher = createPathWatcher(path, (/* filepath */) => {
+        if (!running) {
+          running = true;
+          runTest(path, (/* err, results */) => {
+            running = false;
+          });
+        }
       });
-    });
 
-    ipcMain.on('watch directory', (event, path) => {
-      let watcher;
-      let running = false;
-      if (!pathWatchers[path]) {
-        watcher = createPathWatcher(path, (/* filepath */) => {
-          if (!running) {
-            running = true;
-            runTest(path, (/* err, results */) => {
-              running = false;
-            });
-          }
-        });
+      pathWatchers[path] = watcher;
+    }
+  });
 
-        pathWatchers[path] = watcher;
-      }
-    });
-    ipcMain.on('execute test', (event, path) => {
-      runTest(path);
-    });
+  ipcMain.on('execute test', (event, path) => {
+    runTest(path);
   });
   // ====================================================================
 });
 
 // ipc communication
 ipcMain.on('quit', () => {
+  for (const watcher in pathWatchers) {
+    if ({}.hasOwnProperty.call(pathWatchers, watcher)) {
+      pathWatchers[watcher].close();
+    }
+  }
   app.quit();
 });
