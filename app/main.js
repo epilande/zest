@@ -2,6 +2,7 @@ import menubar from 'menubar';
 import electron, { ipcMain } from 'electron';
 
 import runMocha from './lib/start';
+import createPathWatcher from './lib/watch';
 
 const app = electron.app;
 
@@ -28,19 +29,50 @@ mb.on('ready', () => {
   // your app code here
 });
 
+const pathWatchers = {};
+
+/**
+ * Runs the tests for a project path
+ * @param  {[type]} path [description]
+ * @return {[type]}      [description]
+ */
+function runTest(projectPath, callback = function noop() {}) {
+  return runMocha(projectPath, (err, data) => {
+    callback(err, data);
+    if (err) {
+      return mb.window.webContents.send('test error', err);
+    }
+    const payload = {
+      projectPath,
+      results: data,
+    };
+    return mb.window.webContents.send('test results', payload);
+  });
+}
 mb.on('after-create-window', () => {
   // ====================================================================
   // This is where the data gets passed to `src/index.js`,
   // Move to a function call triggered by the frontend.
   // ====================================================================
   mb.window.webContents.on('dom-ready', () => {
+    ipcMain.on('watch directory', (event, path) => {
+      let watcher;
+      let running = false;
+      if (!pathWatchers[path]) {
+        watcher = createPathWatcher(path, (/* filepath */) => {
+          if (!running) {
+            running = true;
+            runTest(path, (/* err, results */) => {
+              running = false;
+            });
+          }
+        });
+
+        pathWatchers[path] = watcher;
+      }
+    });
     ipcMain.on('execute test', (event, path) => {
-      runMocha(path, (err, data) => {
-        if (err) {
-          return mb.window.webContents.send('test error', err);
-        }
-        return mb.window.webContents.send('test results', data);
-      });
+      runTest(path);
     });
   });
   // ====================================================================
