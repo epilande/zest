@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import {
+  project as projectUtil,
+} from 'utils';
+
 import Header from 'components/Header';
 
 import * as actions from './actions';
@@ -23,9 +27,12 @@ class Project extends Component {
     return (
       <div className={styles.base}>
         <Link to="/">Back</Link>
-          <button onClick={this.setProjectDir}>Select Project Folder</button>
+          <Header
+            title={projectUtil.formatProjectName(project.projectPath)}
+            leftCorner="Back"
+            rightCorner="Next"
+          />
           <p>{JSON.stringify(project)}</p>
-          <Header title="Testing 123" leftCorner="Back" rightCorner="Next" />
       </div>
     );
   }

@@ -1,13 +1,16 @@
+import { remote, ipcRenderer } from 'electron';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
+import {
+  project as projectUtil,
+} from 'utils';
+
+import * as globalActions from '../App/actions';
+
 import * as actions from './actions';
 import styles from './Selection.css';
-
-function formatProjectName(projectPath) {
-  return projectPath.slice(projectPath.lastIndexOf('/'));
-}
 
 class Selection extends Component {
   static defaultProps = {
@@ -16,13 +19,28 @@ class Selection extends Component {
   }
   static propTypes = {
     projects: PropTypes.arrayOf(PropTypes.object),
-    selectProjectPath: PropTypes.function,
+    selectProjectPath: PropTypes.func,
   }
 
   constructor(props) {
     super(props);
     this.state = {
     };
+
+    this.setProjectDir = this.setProjectDir.bind(this);
+  }
+
+  setProjectDir() {
+    const { dialog } = remote;
+    const dir = dialog.showOpenDialog({ properties: ['openDirectory'] });
+
+    if (dir) {
+      const [path] = dir;
+      this.setState({ projectPath: path, results: {} }, () => {
+        ipcRenderer.send('watch directory', path);
+        ipcRenderer.send('execute test', path);
+      });
+    }
   }
 
   render() {
@@ -39,7 +57,7 @@ class Selection extends Component {
           to="/project"
           onClick={onClickHandler}
         >
-          {formatProjectName(projectPath)}
+          {projectUtil.formatProjectName(projectPath)}
         </Link>
       );
     });
@@ -59,4 +77,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, actions)(Selection);
+export default connect(mapStateToProps, {
+  ...globalActions,
+  ...actions,
+})(Selection);
