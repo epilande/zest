@@ -68,7 +68,8 @@ function runTest(projectPath, callback = function noop() {}) {
     }
     const payload = {
       projectPath,
-      results: data,
+      ...data,
+      updatedAt: new Date(),
     };
     const persistedStats = {
       stats: data.stats,

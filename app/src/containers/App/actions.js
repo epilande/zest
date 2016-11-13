@@ -14,6 +14,6 @@ export function updateProject(projectPath, results) {
   return {
     type: UPDATE_PROJECT,
     projectPath,
-    results,
+    ...results,
   };
 }

@@ -50,7 +50,7 @@ Status.defaultProps = {
 };
 
 Status.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.node,
   className: PropTypes.string,
   size: PropTypes.string,
   type: PropTypes.string.isRequired,
