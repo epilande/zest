@@ -1,0 +1,54 @@
+@import "styles/utils/colors.css";
+
+.amount {
+  font-weight: bold;
+}
+
+.icon {
+  margin-right: 0.25rem;
+}
+
+.passing {
+  stroke: var(--success);
+}
+
+.pending {
+  stroke: var(--warn);
+}
+
+.failure {
+  stroke: var(--error);
+}
+
+.typeText {
+  text-transform: uppercase;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.2px;
+}
+
+.small {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  color: var(--text);
+}
+
+.large {
+  text-align: center;
+}
+
+.large .amount {
+  font-size: 2.25rem;
+}
+
+.large .label {
+  justify-content: center;
+}
+
+.large .icon {
+  margin-right: 0.4rem;
+}

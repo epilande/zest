@@ -6,6 +6,7 @@ const Circle = ({ size = 20, stroke = '#36434D', strokeWidth = 2, opacity, ...pr
     height={size}
     viewBox={`0 0 ${size} ${size}`}
     xmlns="http://www.w3.org/2000/svg"
+    stroke={stroke}
     {...props}
   >
     <title>Circle</title>
@@ -14,7 +15,6 @@ const Circle = ({ size = 20, stroke = '#36434D', strokeWidth = 2, opacity, ...pr
       cy={size / 2}
       r={size / 2.5}
       strokeWidth={strokeWidth}
-      stroke={stroke}
       opacity={opacity}
       fill="none"
       fillRule="evenodd"
