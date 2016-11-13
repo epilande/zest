@@ -48,7 +48,7 @@ export function getProjects(callback) {
       const newProjects = [];
       return set(PROJECTS_KEY, newProjects, (initErr) => {
         if (initErr) {
-          return callback(err);
+          return callback(initErr);
         }
         return callback(null, newProjects);
       });
@@ -81,5 +81,31 @@ export function updateProject(projectPath, data, callback) {
     }
 
     return set(PROJECTS_KEY, updatedProjects, callback);
+  });
+}
+
+export function removeProject(projectPath, callback) {
+  return getProjects((err, projects) => {
+    if (err) {
+      return callback(err);
+    }
+
+    const projectIndex = projects.findIndex(project => project.projectPath === projectPath);
+
+    if (projectIndex < 0) {
+      return callback(err, false);
+    }
+
+    const newProjects = [
+      ...projects.slice(0, projectIndex),
+      ...projects.slice(projectIndex + 1),
+    ];
+
+    return set(PROJECTS_KEY, newProjects, (removeErr) => {
+      if (removeErr) {
+        return callback(removeErr);
+      }
+      return callback(err, true);
+    });
   });
 }

@@ -1,3 +1,6 @@
 export const GET_PROJECTS = 'App/GET_PROJECTS';
 export const SET_PROJECTS = 'App/SET_PROJECTS';
 export const UPDATE_PROJECT = 'App/UPDATE_PROJECT';
+export const UPDATE_PROJECT_PROGRESS = 'App/UPDATE_PROJECT_PROGRESS';
+export const ADD_PROJECT = 'App/ADD_PROJECT';
+export const DELETE_PROJECT = 'App/DELETE_PROJECT';

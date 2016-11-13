@@ -3,11 +3,18 @@ import electron, { ipcMain } from 'electron';
 
 import runMocha from './lib/start';
 import createPathWatcher from './lib/watch';
-import { getProjects, updateProject } from './lib/storage';
+import {
+  getProjects,
+  updateProject,
+  removeProject,
+} from './lib/storage';
 
 import {
   INIT_APP,
   SET_PROJECTS,
+  TEST_START,
+  REMOVE_PROJECT,
+  PROJECT_REMOVED,
 } from './src/ipc-events';
 
 const app = electron.app;
@@ -48,13 +55,6 @@ const mb = menubar({
   transparent: true,
 });
 
-mb.on('ready', async () => {
-  await installExtensions();
-
-  console.log('app is ready'); // eslint-disable-line
-  // your app code here
-});
-
 const pathWatchers = {};
 /**
  * Runs the tests for a project path
@@ -62,10 +62,11 @@ const pathWatchers = {};
  * @return {[type]}      [description]
  */
 function runTest(projectPath, callback = function noop() {}) {
+  mb.window.webContents.send(TEST_START, projectPath);
   return runMocha(projectPath, (err, data) => {
     callback(err, data);
     if (err) {
-      return mb.window.webContents.send('test error', err);
+      return mb.window.webContents.send('test error', err, projectPath);
     }
     const payload = {
       projectPath,
@@ -115,6 +116,18 @@ mb.on('ready', () => {
 
   ipcMain.on('execute test', (event, path) => {
     runTest(path);
+  });
+
+  ipcMain.on(REMOVE_PROJECT, (event, path) => {
+    return removeProject(path, (err, wasRemoved) => {
+      const pathWatcher = pathWatchers[path];
+
+      if (pathWatcher) {
+        pathWatcher.close();
+      }
+
+      return mb.window.webContents.send(PROJECT_REMOVED, path, wasRemoved);
+    });
   });
   // ====================================================================
 });

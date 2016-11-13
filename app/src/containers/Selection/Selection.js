@@ -23,9 +23,11 @@ class Selection extends Component {
     projects: [],
     selectProjectPath: () => {},
   }
+
   static propTypes = {
     projects: PropTypes.arrayOf(PropTypes.object),
     selectProjectPath: PropTypes.func,
+    initializeProject: PropTypes.func,
   }
 
   constructor(props) {
@@ -43,6 +45,7 @@ class Selection extends Component {
     if (dir) {
       const [path] = dir;
       this.setState({ projectPath: path, results: {} }, () => {
+        this.props.initializeProject(path);
         ipcRenderer.send('watch directory', path);
         ipcRenderer.send('execute test', path);
       });
@@ -55,8 +58,21 @@ class Selection extends Component {
       selectProjectPath,
     } = this.props;
     const links = projects.map((project) => {
-      const { stats, updatedAt, projectPath } = project;
+      const { updatedAt, projectPath, inProgress } = project;
+      const stats = project.stats || {};
       const onClickHandler = () => selectProjectPath(project);
+      let passes = stats.passes;
+      let pending = stats.pending;
+      let failures = stats.failures;
+      let updatedAtLabel = updatedAt && testUtils.formatTime(updatedAt);
+
+      if (inProgress) {
+        passes = '–';
+        pending = '–';
+        failures = '–';
+        updatedAtLabel = 'In progress...';
+      }
+
       return (
         <ListItem
           key={projectPath}
@@ -70,14 +86,14 @@ class Selection extends Component {
               <div className={styles.projectPath}>
                 {projectUtil.formatProjectName(projectPath)}
               </div>
-              {updatedAt &&
-                  <div className={styles.updatedAt}>{testUtils.formatTime(updatedAt)}</div>
+              {updatedAtLabel &&
+                <div className={styles.updatedAt}>{updatedAtLabel}</div>
               }
             </div>
             <div className={styles.stats}>
-              <Status type="passing">{stats.passes}</Status>
-              <Status type="pending">{stats.pending}</Status>
-              <Status type="failure">{stats.failures}</Status>
+              <Status type="passing">{passes}</Status>
+              <Status type="pending">{pending}</Status>
+              <Status type="failure">{failures}</Status>
             </div>
           </Link>
         </ListItem>
