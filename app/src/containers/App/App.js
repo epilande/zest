@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import { ipcRenderer } from 'electron';
 import { connect } from 'react-redux';
 
@@ -15,6 +14,7 @@ class App extends Component {
   static propTypes = {
     children: PropTypes.element,
   };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -45,9 +45,6 @@ class App extends Component {
   render() {
     return (
       <div className={styles.base}>
-        <button onClick={this.setProjectDir}>Select Project Folder</button>
-        <Link to="/selection">Selection page</Link>
-        <Link to="/project">Project page</Link>
         {this.props.children}
       </div>
     );
