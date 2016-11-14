@@ -1,3 +1,4 @@
+import fixpath from 'fix-path';
 import menubar from 'menubar';
 import electron, { ipcMain } from 'electron';
 
@@ -16,6 +17,8 @@ import {
   REMOVE_PROJECT,
   PROJECT_REMOVED,
 } from './src/ipc-events';
+
+fixpath();
 
 const app = electron.app;
 
