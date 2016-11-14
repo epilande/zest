@@ -549,13 +549,6 @@ textarea,
 }
 
 
-
-
-
-
-
-
-
 body {
   font-family: "Avenir Next", Avenir, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   background: #f9f9f9;
@@ -646,6 +639,7 @@ h1 {
 
 .header {
   position: relative;
+  min-height: 510px;
   height: 52vh;
   z-index: 1;
 }
@@ -653,6 +647,7 @@ h1 {
 .footer {
   position: relative;
   height: 54vh;
+  min-height: 530px;
   background-color: #333333;
   color: #f9f9f9;
   padding: 2rem 1rem;
@@ -687,3 +682,18 @@ h1 {
 .vote {
   margin-top: -4px;
 }
+
+@media (max-width: 600px) {
+  html {
+    font-size: 13px;
+  }
+
+  .preview img {
+    width: 100%;
+  }
+
+  .footer {
+    min-height: 250px;
+  }
+}
+
