@@ -3,7 +3,7 @@
 <p align="center">
   <strong>Testing reporter that lives in your menubar</strong></br>
   Made with love & <a href="http://electron.atom.io/">Electron</a>.</br></br>
-  <a href="https://github.com/epilande/zest/releases/latest"><img src="https://github.com/epilande/zest/blob/master/public/ZT-screenshot.png"/></a></br></br>
+  <a href="https://github.com/epilande/zest/releases/latest"><img src="https://github.com/epilande/zest/blob/master/docs/ZT-screenshot.png"/></a></br></br>
 </p>
 
 
@@ -52,7 +52,7 @@ Internally, Zest will go into the project and run `npm test`. This is to make su
 
 This is an application geared towards Node.js developers who use Mocha and Karma for writing tests. When the app is installed, it will add itself as a menubar icon that will allow you an overview of the status of all your projects' tests.
 
-![zest gif](https://github.com/epilande/zest/blob/master/public/ZT-gif.gif)
+![zest gif](https://github.com/epilande/zest/blob/master/docs/ZT-gif.gif)
 
 By clicking the menubar icon, a new window will appear with a list of projects Zest knows of.
 
